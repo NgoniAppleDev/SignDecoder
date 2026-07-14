@@ -14,11 +14,14 @@ struct ContentView: View {
                 VStack(alignment: .leading, spacing: 50) {
                     Text("Tap to select a sign to translate")
                         .font(.headline)
+                        .foregroundStyle(.black)
                     
                     ImageGalleryView()
                 }
             }
+            .trailTheme()
             .navigationTitle("Sign Decoder")
+            .toolbarColorScheme(.light, for: .navigationBar)
         }
     }
 }

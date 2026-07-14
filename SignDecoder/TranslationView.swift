@@ -20,7 +20,7 @@ struct TranslationView: View {
             Text("Identified Text")
                 .font(.subheadline.bold())
                 .textCase(.uppercase)
-                .foregroundStyle(.gray)
+                .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading)
             
@@ -29,7 +29,7 @@ struct TranslationView: View {
                 .padding()
                 .background(
                     RoundedRectangle(cornerRadius: 8)
-                        .fill(Color(white: 0.9))
+                        .fill(Color(.secondarySystemBackground))
                 )
                 .overlay {
                     if isProcessing {
@@ -42,8 +42,13 @@ struct TranslationView: View {
                 showingTranslation = true
             } label: {
                 Text("Translate")
+                    .frame(height: 50)
+                    .frame(maxWidth: .infinity)
+                    .font(.title2.bold())
             }
+            .disabled(text.isEmpty)
             .buttonStyle(.glassProminent)
+            .padding(.top)
         }
     }
 }
@@ -53,5 +58,5 @@ struct TranslationView: View {
 }
 
 #Preview("is Processing") {
-    TranslationView(text: "Caution, falling rocks", isProcessing: true)
+    TranslationView(text: "", isProcessing: true)
 }
