@@ -22,7 +22,7 @@ struct TranslationView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading)
             
-            Text("Caution, falling rocks")
+            Text(text)
                 .frame(maxWidth: .infinity, maxHeight: 50, alignment: .topLeading)
                 .padding()
                 .background(Color(white: 0.9))
