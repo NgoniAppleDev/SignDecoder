@@ -13,21 +13,18 @@ struct TextRecognitionView: View {
     @State private var textRecognizer: TextRecognizer?
     
     var body: some View {
-        VStack {
+        ScrollView(showsIndicators: false) {
             Image(imageResource)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .clipShape(.rect(cornerRadius: 8))
                 .task {
                     textRecognizer = await TextRecognizer(imageResource: imageResource)
                 }
             
-            Spacer()
-            
-            TranslationView(text: textRecognizer?.recognizedText ?? "")
+            TranslationView(text: textRecognizer?.recognizedText ?? "...")
+                .padding()
         }
-        .padding()
-        .navigationTitle("Sign Info")
+        .ignoresSafeArea()
     }
 }
 

@@ -25,7 +25,10 @@ struct TranslationView: View {
             Text(text)
                 .frame(maxWidth: .infinity, maxHeight: 50, alignment: .topLeading)
                 .padding()
-                .background(Color(white: 0.9))
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color(white: 0.9))
+                )
                 .translationPresentation(isPresented: $showingTranslation, text: text)
             
             Button {
@@ -33,6 +36,7 @@ struct TranslationView: View {
             } label: {
                 Text("Translate")
             }
+            .buttonStyle(.glassProminent)
         }
     }
 }
