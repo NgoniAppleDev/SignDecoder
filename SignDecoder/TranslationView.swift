@@ -11,6 +11,8 @@ import Translation
 struct TranslationView: View {
     
     var text: String
+    var isProcessing: Bool
+    
     @State private var showingTranslation = false
     
     var body: some View {
@@ -29,6 +31,11 @@ struct TranslationView: View {
                     RoundedRectangle(cornerRadius: 8)
                         .fill(Color(white: 0.9))
                 )
+                .overlay {
+                    if isProcessing {
+                        ProgressView()
+                    }
+                }
                 .translationPresentation(isPresented: $showingTranslation, text: text)
             
             Button {
@@ -41,6 +48,10 @@ struct TranslationView: View {
     }
 }
 
-#Preview {
-    TranslationView(text: "Caution, falling rocks")
+#Preview("Processed") {
+    TranslationView(text: "Caution, falling rocks", isProcessing: false)
+}
+
+#Preview("is Processing") {
+    TranslationView(text: "Caution, falling rocks", isProcessing: true)
 }

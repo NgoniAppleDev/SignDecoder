@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import Vision
 
 struct TextRecognitionView: View {
     
     let imageResource: ImageResource
+    let boundingColor = Color.orange
     @State private var textRecognizer: TextRecognizer?
     
     var body: some View {
@@ -20,17 +22,27 @@ struct TextRecognitionView: View {
                 .task {
                     textRecognizer = await TextRecognizer(imageResource: imageResource)
                 }
+                .overlay {
+                    if let observations = textRecognizer?.observations {
+                        ForEach(observations, id: \.uuid) { observation in
+                            BoundsRect(normalizedRect: observation.boundingBox)
+                                .stroke(boundingColor, lineWidth: 3)
+                        }
+                    }
+                }
             
-            TranslationView(text: textRecognizer?.recognizedText ?? "...")
+            TranslationView(text: textRecognizer?.recognizedText ?? "", isProcessing: isProcessing)
                 .padding()
         }
         .ignoresSafeArea()
     }
+    
+    private var isProcessing: Bool {
+        textRecognizer == nil
+    }
 }
 
 #Preview {
-    NavigationStack {
-        TextRecognitionView(imageResource: .sign1)
-            .navigationBarTitleDisplayMode(.inline)
-    }
+    TextRecognitionView(imageResource: .sign1)
+        .navigationBarTitleDisplayMode(.inline)
 }
